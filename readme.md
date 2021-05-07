@@ -2,8 +2,8 @@
 
 ## Run
 
-- Step 1: npm install
-- Step 2: node index.js
+- Step 1: `npm install`
+- Step 2: `node index.js`
 
 ## Deploy
 
