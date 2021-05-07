@@ -36,6 +36,7 @@ const smtpPwd = 'smtpPwd';
 let messageSent = false;
 launchApp();
 async function launchApp() {
+  messageSent = false;
   await Promise.all(
     pinCodes.map(async (pinCode, i) => {
       if (messageSent) {
@@ -44,21 +45,19 @@ async function launchApp() {
       messageSent = !messageSent ? await getSlots(pinCode) : messageSent;
     })
   );
-
   if (!messageSent && sendNoSlotsEmail) {
-    // sendEmail(
-    //   `Hello, \n\n\tNo slots available for your selected age group of ${minAge}+ at ${
-    //     pinCodes.length
-    //   } pincodes: ${pinCodes.join(', ')}. \n\nThanks.`
-    // );
+    sendEmail(
+      `Hello, \n\n\tNo slots available for your selected age group of ${minAge}+ at ${
+        pinCodes.length
+      } pincodes: ${pinCodes.join(', ')}. \n\nThanks.`
+    );
     console.log('sent no slots email');
   }
+  console.log(`Covid Vaccine Check Complete for ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`);
 }
 
 function sendEmail(message) {
-  var subject = `CoWin Vaccination Availability Report: ${formatDate(
-    new Date()
-  )}`;
+  var subject = `CoWin Vaccination Availability Report: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`;
 
   var transporter = nodemailer.createTransport({
     host: smtpHost,
