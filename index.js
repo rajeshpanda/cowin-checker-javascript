@@ -2,8 +2,7 @@ const cron = require('node-cron');
 const express = require('express');
 const nodemailer = require('nodemailer');
 const https = require('https');
-
-import * as constants from './constants';
+const constants = require('./constants');
 
 app = express();
 cron.schedule('*/10 * * * *', function () {

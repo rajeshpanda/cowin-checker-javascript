@@ -6,3 +6,12 @@ export const sendNoSlotsEmail = true; // set to true if you need no slots availa
 export const smtpHost = 'smtpHost'; // for gmail use smtp.gmail.com
 export const smtpUsername = 'smtpUsername';
 export const smtpPwd = 'smtpPwd';
+
+exports.pinCodes = pinCodes;
+exports.minAge = minAge;
+exports.emailAddresses = emailAddresses;
+exports.feeType = feeType;
+exports.sendNoSlotsEmail = sendNoSlotsEmail;
+exports.smtpHost = smtpHost;
+exports.smtpUsername = smtpUsername;
+exports.smtpPwd = smtpPwd;
