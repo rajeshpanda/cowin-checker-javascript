@@ -3,6 +3,8 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const https = require('https');
 
+import * as constants from './constants';
+
 app = express();
 cron.schedule('*/10 * * * *', function () {
   launchApp();
@@ -10,18 +12,14 @@ cron.schedule('*/10 * * * *', function () {
 app.listen(3000);
 
 // Change Params Here
-const pinCodes = [
-  'Pincode1',
-  'Pincode2',
-  'Pincode3'
-];
-const minAge = 18; // 18 | 45
-const emailAddresses = 'email@email.com, email2@email.com';
-const feeType = 'Both'; // Paid | Free | Both
-const sendNoSlotsEmail = true; // set to true if you need no slots available email
-const smtpHost = 'smtpHost'; // for gmail use smtp.gmail.com
-const smtpUsername = 'smtpUsername';
-const smtpPwd = 'smtpPwd';
+const pinCodes = constants.pinCodes;
+const minAge = constants.minAge;
+const emailAddresses = constants.emailAddresses;
+const feeType = constants.feeType; // Paid | Free | Both
+const sendNoSlotsEmail = constants.sendNoSlotsEmail; // set to true if you need no slots available email
+const smtpHost = constants.smtpHost;
+const smtpUsername = constants.smtpUsername;
+const smtpPwd = constants.smtpPwd;
 // End
 let messageSent = false;
 launchApp();
@@ -41,9 +39,11 @@ async function launchApp() {
         pinCodes.length
       } pincodes: ${pinCodes.join(', ')}. \n\nThanks.`
     );
-    console.log('sent no slots email');
+    console.log('sent NO SLOTS email');
   }
-  console.log(`Covid Vaccine Check Complete for ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`);
+  console.log(
+    `Covid Vaccine Check Complete for ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`
+  );
 }
 
 function sendEmail(message) {
