@@ -11,19 +11,9 @@ app.listen(3000);
 
 // Change Params Here
 const pinCodes = [
-  '500084',
-  '500032',
-  '500049',
-  '500075',
-  '500019',
-  '501203',
-  '500082',
-  '500072',
-  '500033',
-  '500045',
-  '500018',
-  '500050',
-  '502032',
+  'Pincode1',
+  'Pincode2',
+  'Pincode3'
 ];
 const minAge = 18; // 18 | 45
 const emailAddresses = 'email@email.com, email2@email.com';
