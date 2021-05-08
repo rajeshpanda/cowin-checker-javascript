@@ -14,8 +14,8 @@ app.listen(process.env.NODE_PORT||3000);
 const pinCodes = constants.pinCodes;
 const minAge = constants.minAge;
 const emailAddresses = constants.emailAddresses;
-const feeType = constants.feeType; // Paid | Free | Both
-const sendNoSlotsEmail = constants.sendNoSlotsEmail; // set to true if you need no slots available email
+const feeType = constants.feeType;
+const sendNoSlotsEmail = constants.sendNoSlotsEmail;
 const smtpHost = constants.smtpHost;
 const smtpUsername = constants.smtpUsername;
 const smtpPwd = constants.smtpPwd;
