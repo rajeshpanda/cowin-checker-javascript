@@ -51,10 +51,10 @@ function sendEmail(message) {
   var transporter = nodemailer.createTransport({
     host: smtpHost,
     port: 587,
-    secure: false, // true for 465, false for other ports
+    secure: false,
     auth: {
-      user: smtpUsername, // generated ethereal user
-      pass: smtpPwd, // generated ethereal password
+      user: smtpUsername,
+      pass: smtpPwd,
     },
   });
 
@@ -161,12 +161,10 @@ function makeRequest(pincode, date) {
       .get(options, (resp) => {
         let data = '';
 
-        // A chunk of data has been received.
         resp.on('data', (chunk) => {
           data += chunk;
         });
 
-        // The whole response has been received. Print out the result.
         resp.on('end', () => {
           resolve(data);
         });
