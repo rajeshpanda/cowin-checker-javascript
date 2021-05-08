@@ -8,7 +8,7 @@ app = express();
 cron.schedule('*/10 * * * *', function () {
   launchApp();
 });
-app.listen(3000);
+app.listen(process.env.NODE_PORT||3000);
 
 // Change Params Here
 const pinCodes = constants.pinCodes;
