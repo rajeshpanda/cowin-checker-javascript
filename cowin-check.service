@@ -1,0 +1,15 @@
+[Unit]
+Description=cowin-checker - get cowin notifications by email
+Documentation=https://github.com/rajeshpanda/cowin-checker-javascript#readme
+After=network.target
+
+[Service]
+Environment=NODE_PORT=3001
+Type=simple
+User=pi
+ExecStartPre=/bin/sleep 30
+ExecStart=/usr/local/bin/node /home/pi/Documents/cowin-checker-javascript-master/index.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

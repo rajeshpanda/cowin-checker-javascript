@@ -8,13 +8,13 @@ app = express();
 cron.schedule('*/10 * * * *', function () {
   launchApp();
 });
-app.listen(3000);
+app.listen(process.env.NODE_PORT||3000);
 
 const pinCodes = constants.pinCodes;
 const minAge = constants.minAge;
 const emailAddresses = constants.emailAddresses;
-const feeType = constants.feeType; // Paid | Free | Both
-const sendNoSlotsEmail = constants.sendNoSlotsEmail; // set to true if you need no slots available email
+const feeType = constants.feeType;
+const sendNoSlotsEmail = constants.sendNoSlotsEmail;
 const smtpHost = constants.smtpHost;
 const smtpUsername = constants.smtpUsername;
 const smtpPwd = constants.smtpPwd;
@@ -50,10 +50,10 @@ function sendEmail(message) {
   var transporter = nodemailer.createTransport({
     host: smtpHost,
     port: 587,
-    secure: false, // true for 465, false for other ports
+    secure: false,
     auth: {
-      user: smtpUsername, // generated ethereal user
-      pass: smtpPwd, // generated ethereal password
+      user: smtpUsername,
+      pass: smtpPwd,
     },
   });
 
@@ -160,12 +160,10 @@ function makeRequest(pincode, date) {
       .get(options, (resp) => {
         let data = '';
 
-        // A chunk of data has been received.
         resp.on('data', (chunk) => {
           data += chunk;
         });
 
-        // The whole response has been received. Print out the result.
         resp.on('end', () => {
           resolve(data);
         });
