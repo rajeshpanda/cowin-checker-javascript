@@ -8,7 +8,7 @@ app = express();
 cron.schedule('*/10 * * * *', function () {
   launchApp();
 });
-app.listen(process.env.NODE_PORT||3000);
+app.listen(process.env.NODE_PORT || 3000);
 
 const pinCodes = constants.pinCodes;
 const minAge = constants.minAge;
@@ -19,15 +19,11 @@ const smtpHost = constants.smtpHost;
 const smtpUsername = constants.smtpUsername;
 const smtpPwd = constants.smtpPwd;
 
-let messageSent = false;
 launchApp();
 async function launchApp() {
-  messageSent = false;
+  let messageSent = false;
   await Promise.all(
     pinCodes.map(async (pinCode, i) => {
-      if (messageSent) {
-        return;
-      }
       messageSent = !messageSent ? await getSlots(pinCode) : messageSent;
     })
   );
@@ -92,6 +88,7 @@ function formatDate(date) {
 }
 
 async function getSlots(pinCode) {
+  let messageSent = false;
   const week1 = formatDate(new Date());
   const week2 = formatDate(addDays(7));
   const week3 = formatDate(addDays(14));
