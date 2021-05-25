@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const express = require('express');
 const nodemailer = require('nodemailer');
 const https = require('https');
-const constants = require('./constants');
+const constants = require('./myconstants');
 
 app = express();
 cron.schedule('*/10 * * * *', function () {
@@ -18,6 +18,7 @@ const sendNoSlotsEmail = constants.sendNoSlotsEmail;
 const smtpHost = constants.smtpHost;
 const smtpUsername = constants.smtpUsername;
 const smtpPwd = constants.smtpPwd;
+const lookForDose = constants.lookForDose;
 
 launchApp();
 async function launchApp() {
@@ -124,7 +125,9 @@ async function getSlots(pinCode) {
             if (
               session &&
               session['min_age_limit'] <= minAge &&
-              session['available_capacity'] > 0
+              session['available_capacity'] > 0 &&
+              ((lookForDose == 1 && session['available_capacity_dose1'] > 0) ||
+                (lookForDose == 2 && session['available_capacity_dose2'] > 0))
             ) {
               sendEmail(
                 `Hello, \n\n\tVaccination for your selected age group of ${minAge}+ and selected area is available from ${session['date']} at ${center['name']}, ${center['block_name']}, ${center['district_name']}, ${center['state_name']}, Pincode-${center['pincode']}. Go to https://selfregistration.cowin.gov.in/ right now. \n\nThanks.`

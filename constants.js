@@ -1,11 +1,12 @@
-export const pinCodes = ['Pincode1', 'Pincode2', 'Pincode3'];
-export const minAge = 18; // 18 | 45
-export const emailAddresses = 'email@email.com, email2@email.com';
-export const feeType = 'Both'; // Paid | Free | Both
-export const sendNoSlotsEmail = true; // set to true if you need no slots available email
-export const smtpHost = 'smtpHost'; // for gmail use smtp.gmail.com
-export const smtpUsername = 'smtpUsername';
-export const smtpPwd = 'smtpPwd';
+const pinCodes = ['Pincode1', 'Pincode2', 'Pincode3'];
+const minAge = 18; // 18 | 45
+const emailAddresses = 'email@email.com, email2@email.com';
+const feeType = 'Both'; // Paid | Free | Both
+const sendNoSlotsEmail = true; // set to true if you need no slots available email
+const smtpHost = 'smtpHost'; // for gmail use smtp.gmail.com
+const smtpUsername = 'smtpUsername';
+const smtpPwd = 'smtpPwd';
+const lookForDose = 1;
 
 exports.pinCodes = pinCodes;
 exports.minAge = minAge;
@@ -15,3 +16,4 @@ exports.sendNoSlotsEmail = sendNoSlotsEmail;
 exports.smtpHost = smtpHost;
 exports.smtpUsername = smtpUsername;
 exports.smtpPwd = smtpPwd;
+exports.lookForDose = lookForDose;
