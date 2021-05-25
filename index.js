@@ -10,7 +10,6 @@ cron.schedule('*/10 * * * *', function () {
 });
 app.listen(3000);
 
-// Change Params Here
 const pinCodes = constants.pinCodes;
 const minAge = constants.minAge;
 const emailAddresses = constants.emailAddresses;
@@ -19,7 +18,7 @@ const sendNoSlotsEmail = constants.sendNoSlotsEmail; // set to true if you need 
 const smtpHost = constants.smtpHost;
 const smtpUsername = constants.smtpUsername;
 const smtpPwd = constants.smtpPwd;
-// End
+
 let messageSent = false;
 launchApp();
 async function launchApp() {
@@ -117,7 +116,7 @@ async function getSlots(pinCode) {
         if (messageSent) {
           return messageSent;
         }
-        if (center && feeType != 'both' && center['fee_type'] != feeType) {
+        if (center && feeType != 'Both' && center['fee_type'] != feeType) {
           return messageSent;
         }
         if (center && center['sessions']) {
