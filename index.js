@@ -5,7 +5,7 @@ const https = require('https');
 const constants = require('./constants');
 
 app = express();
-cron.schedule('*/10 * * * *', function () {
+cron.schedule('*/2 * * * *', function () {
   launchApp();
 });
 app.listen(process.env.NODE_PORT || 3000);
@@ -110,18 +110,13 @@ async function getSlots(pinCode) {
     const centers4 = response4['centers'] ? response4['centers'] : [];
     centers = centers1.concat(centers2).concat(centers3).concat(centers4);
     if (centers) {
+      const message = '';
       centers.forEach((center, i) => {
-        if (messageSent) {
-          return messageSent;
-        }
         if (center && feeType != 'Both' && center['fee_type'] != feeType) {
-          return messageSent;
+          return;
         }
         if (center && center['sessions']) {
           center['sessions'].forEach((session, j) => {
-            if (messageSent) {
-              return messageSent;
-            }
             if (
               session &&
               session['min_age_limit'] <= minAge &&
@@ -129,15 +124,19 @@ async function getSlots(pinCode) {
               ((lookForDose == 1 && session['available_capacity_dose1'] > 0) ||
                 (lookForDose == 2 && session['available_capacity_dose2'] > 0))
             ) {
-              sendEmail(
-                `Hello, \n\n\tVaccination for your selected age group of ${minAge}+ and selected area is available from ${session['date']} at ${center['name']}, ${center['block_name']}, ${center['district_name']}, ${center['state_name']}, Pincode-${center['pincode']}. Go to https://selfregistration.cowin.gov.in/ right now. \n\nThanks.`
-              );
-              messageSent = true;
-              console.log('sent SLOTS AVAILABLE email');
+              message = message + '\n${session['date']} at ${center['name']}, ${center['block_name']}, ${center['district_name']}, ${center['state_name']}, ${center['pincode']}';
+              
             }
           });
         }
       });
+      if (message) {
+        sendEmail(
+                `Hello, \n\n\tVaccination for your selected age group of ${minAge}+ and pincode - ${center['pincode']} is available at- ${message} \n\nGo to https://selfregistration.cowin.gov.in/ right now. \n\nThanks.`
+              );
+              messageSent= true;
+              console.log('sent SLOTS AVAILABLE email');
+      }
     }
   } catch (err) {
     console.log('Exception Somewhere!', err);
