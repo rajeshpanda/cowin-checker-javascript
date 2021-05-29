@@ -110,7 +110,7 @@ async function getSlots(pinCode) {
     const centers4 = response4['centers'] ? response4['centers'] : [];
     centers = centers1.concat(centers2).concat(centers3).concat(centers4);
     if (centers) {
-      const message = '';
+      let message = '';
       centers.forEach((center, i) => {
         if (center && feeType != 'Both' && center['fee_type'] != feeType) {
           return;
@@ -124,18 +124,19 @@ async function getSlots(pinCode) {
               ((lookForDose == 1 && session['available_capacity_dose1'] > 0) ||
                 (lookForDose == 2 && session['available_capacity_dose2'] > 0))
             ) {
-              message = message + '\n${session['date']} at ${center['name']}, ${center['block_name']}, ${center['district_name']}, ${center['state_name']}, ${center['pincode']}';
-              
+              message =
+                message +
+                `\n\n${session['vaccine']} on ${session['date']} at ${center['name']}, ${center['block_name']}, ${center['district_name']}, ${center['state_name']}, ${center['pincode']}`;
             }
           });
         }
       });
       if (message) {
         sendEmail(
-                `Hello, \n\n\tVaccination for your selected age group of ${minAge}+ and pincode - ${center['pincode']} is available at- ${message} \n\nGo to https://selfregistration.cowin.gov.in/ right now. \n\nThanks.`
-              );
-              messageSent= true;
-              console.log('sent SLOTS AVAILABLE email');
+          `Hello, \n\n\tVaccination for your selected age group of ${minAge}+ and pincode - ${pinCode} is available at- ${message} \n\nGo to https://selfregistration.cowin.gov.in/ right now. \n\nThanks.`
+        );
+        messageSent = true;
+        console.log('sent SLOTS AVAILABLE email');
       }
     }
   } catch (err) {
